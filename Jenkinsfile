@@ -32,13 +32,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                            sh "scp centos@ 35.178.181.87:**/target/*.war centos@${params.tomcat_dev}:/var/lib/tomcat/webapps"
+                            sh "scp -i /Users/medrim/Documents/TomcatKey.pem **/target/*.war centos@${params.tomcat_dev}:/var/lib/tomcat/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                            sh "scp centos@ 35.178.181.87:**/target/*.war centos@${params.tomcat_prod}:/var/lib/tomcat/webapps"
+                            sh "scp -i /Users/medrim/Documents/TomcatKey.pem **/target/*.war centos@${params.tomcat_prod}:/var/lib/tomcat/webapps"
                     }
                 }
             }
