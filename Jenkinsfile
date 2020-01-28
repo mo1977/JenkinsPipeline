@@ -32,19 +32,19 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                            sh 'ssh centos@${params.tomcat_dev} rm -rf /webapp/target/webapp.war'
-                            sh 'ssh centos@${params.tomcat_dev} mkdir -p /webapp/target/'
-                            sh 'scp -r /webapp/target/webapp.war centos@${params.tomcat_dev} /webapp/target/webapp.war'
-                            sh 'ssh centos@${params.tomcat_dev} "rm -rf /var/lib/tomcat/webapps/ && mv /webapp/target/webapp.war /var/lib/tomcat/webapps/"'
+                            sh 'ssh centos@${params.tomcat_dev}: rm -rf /webapp/target/webapp.war'
+                            sh 'ssh centos@${params.tomcat_dev}: mkdir -p /webapp/target/'
+                            sh 'scp -r /webapp/target/webapp.war centos@${params.tomcat_dev}: /webapp/target/webapp.war'
+                            sh 'ssh centos@${params.tomcat_dev}: "rm -rf /var/lib/tomcat/webapps/ && mv /webapp/target/webapp.war /var/lib/tomcat/webapps/"'
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                            sh 'ssh centos@${params.tomcat_prod} rm -rf /webapp/target/webapp.war'
-                            sh 'ssh centos@${params.tomcat_prod} mkdir -p /webapp/target/'
-                            sh 'scp -r /webapp/target/webapp.war centos@${params.tomcat_prod} /webapp/target/webapp.war'
-                            sh 'ssh centos@${params.tomcat_prod} "rm -rf /var/lib/tomcat/webapps/ && mv /webapp/target/webapp.war /var/lib/tomcat/webapps/"'
+                            sh 'ssh centos@${params.tomcat_prod}: rm -rf /webapp/target/webapp.war'
+                            sh 'ssh centos@${params.tomcat_prod}: mkdir -p /webapp/target/'
+                            sh 'scp -r /webapp/target/webapp.war centos@${params.tomcat_prod}: /webapp/target/webapp.war'
+                            sh 'ssh centos@${params.tomcat_prod}: "rm -rf /var/lib/tomcat/webapps/ && mv /webapp/target/webapp.war /var/lib/tomcat/webapps/"'
                     }
                 }
             }
