@@ -6,4 +6,5 @@ Git
 GitHub
 Jenkins
 Maven
+Copy Artifact Plugin
 AWS EC2
