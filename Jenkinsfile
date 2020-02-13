@@ -7,7 +7,8 @@ pipeline {
     }
 
     parameters {
-         string(name: 'tomcat_prod', defaultValue: '172.31.20.112', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: '3.10.117.132', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '35.176.221.45', description: 'Production Server')
     }
 
     triggers {
@@ -31,11 +32,15 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                            sh "scp **/target/*.war tomcat-admin@${params.tomcat_prod}:/opt/tomcat/webapps"
+                            sh "scp -i /home/centos/TomcatKey.pem **/target/*.war centos@${params.tomcat_dev}:/var/lib/tomcat/webapps"
                     }
                 }
 
-  
+                stage ("Deploy to Production"){
+                    steps {
+                            sh "scp -i /home/centos/TomcatKey.pem **/target/*.war centos@${params.tomcat_prod}:/var/lib/tomcat/webapps"
+                    }
+                }
             }
         }
     }
